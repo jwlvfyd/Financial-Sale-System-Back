@@ -1,22 +1,40 @@
 package com.demo.service.dto;
 
+import java.util.Objects;
+
 public class RedeemDTO {
-    private int uniqueid;
+
+    private int uniqueId;
     private String swiftNo;
-    private int share;
-    private long timestamp;
+    private Integer share;
+    private Long timestamp;
     private String customerId;
     private String accountId;
     private String productId;
     private String state;
 
-    // Getters and Setters
-    public int getUniqueid() {
-        return uniqueid;
+    // Default constructor
+    public RedeemDTO() {}
+
+    // Parameterized constructor
+    public RedeemDTO(int uniqueId, String swiftNo, Integer share, Long timestamp, String customerId, String accountId, String productId, String state) {
+        this.uniqueId = uniqueId;
+        this.swiftNo = swiftNo;
+        this.share = share;
+        this.timestamp = timestamp;
+        this.customerId = customerId;
+        this.accountId = accountId;
+        this.productId = productId;
+        this.state = state;
     }
 
-    public void setUniqueid(int uniqueid) {
-        this.uniqueid = uniqueid;
+    // Getters and Setters
+    public int getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(int uniqueId) {
+        this.uniqueId = uniqueId;
     }
 
     public String getSwiftNo() {
@@ -27,19 +45,19 @@ public class RedeemDTO {
         this.swiftNo = swiftNo;
     }
 
-    public int getShare() {
+    public Integer getShare() {
         return share;
     }
 
-    public void setShare(int share) {
+    public void setShare(Integer share) {
         this.share = share;
     }
 
-    public long getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -75,11 +93,33 @@ public class RedeemDTO {
         this.state = state;
     }
 
-    // Optional: Override toString(), equals(), and hashCode() methods
+    // Overriding hashCode method
+    @Override
+    public int hashCode() {
+        return Objects.hash(uniqueId, swiftNo, share, timestamp, customerId, accountId, productId, state);
+    }
+
+    // Overriding equals method
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RedeemDTO redeemDTO = (RedeemDTO) o;
+        return uniqueId == redeemDTO.uniqueId &&
+                Objects.equals(swiftNo, redeemDTO.swiftNo) &&
+                Objects.equals(share, redeemDTO.share) &&
+                Objects.equals(timestamp, redeemDTO.timestamp) &&
+                Objects.equals(customerId, redeemDTO.customerId) &&
+                Objects.equals(accountId, redeemDTO.accountId) &&
+                Objects.equals(productId, redeemDTO.productId) &&
+                Objects.equals(state, redeemDTO.state);
+    }
+
+    // toString method for easy printing
     @Override
     public String toString() {
         return "RedeemDTO{" +
-                "uniqueid=" + uniqueid +
+                "uniqueId=" + uniqueId +
                 ", swiftNo='" + swiftNo + '\'' +
                 ", share=" + share +
                 ", timestamp=" + timestamp +
@@ -88,35 +128,5 @@ public class RedeemDTO {
                 ", productId='" + productId + '\'' +
                 ", state='" + state + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        RedeemDTO redeemDTO = (RedeemDTO) o;
-
-        if (uniqueid != redeemDTO.uniqueid) return false;
-        if (share != redeemDTO.share) return false;
-        if (timestamp != redeemDTO.timestamp) return false;
-        if (swiftNo != null ? !swiftNo.equals(redeemDTO.swiftNo) : redeemDTO.swiftNo != null) return false;
-        if (customerId != null ? !customerId.equals(redeemDTO.customerId) : redeemDTO.customerId != null) return false;
-        if (accountId != null ? !accountId.equals(redeemDTO.accountId) : redeemDTO.accountId != null) return false;
-        if (productId != null ? !productId.equals(redeemDTO.productId) : redeemDTO.productId != null) return false;
-        return state != null ? state.equals(redeemDTO.state) : redeemDTO.state == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = uniqueid;
-        result = 31 * result + (swiftNo != null ? swiftNo.hashCode() : 0);
-        result = 31 * result + share;
-        result = 31 * result + (int) (timestamp ^ (timestamp >>> 32));
-        result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
-        result = 31 * result + (accountId != null ? accountId.hashCode() : 0);
-        result = 31 * result + (productId != null ? productId.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        return result;
     }
 }

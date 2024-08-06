@@ -61,3 +61,6 @@ build/
 .DS_Store
 >>>>>>> 481ffac (template)
 >>>>>>> 4eea025 (template)
+
+# 默认外新增
+/demo-server/src/main/resources/db.properties

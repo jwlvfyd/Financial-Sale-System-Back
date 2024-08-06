@@ -1,5 +1,7 @@
 package com.demo.service.dto;
 
+import java.util.Objects;
+
 public class UserDTO {
 
     private int uniqueId;
@@ -61,6 +63,25 @@ public class UserDTO {
         this.gender = gender;
     }
 
+    // Overriding hashCode method
+    @Override
+    public int hashCode() {
+        return Objects.hash(uniqueId, userId, name, password, gender);
+    }
+
+    // Overriding equals method
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDTO userDTO = (UserDTO) o;
+        return uniqueId == userDTO.uniqueId &&
+                Objects.equals(userId, userDTO.userId) &&
+                Objects.equals(name, userDTO.name) &&
+                Objects.equals(password, userDTO.password) &&
+                Objects.equals(gender, userDTO.gender);
+    }
+
     // toString method for easy printing
     @Override
     public String toString() {
@@ -73,3 +94,4 @@ public class UserDTO {
                 '}';
     }
 }
+

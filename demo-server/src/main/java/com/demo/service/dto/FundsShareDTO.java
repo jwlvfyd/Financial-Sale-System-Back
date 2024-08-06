@@ -1,19 +1,34 @@
 package com.demo.service.dto;
 
+import java.util.Objects;
+
 public class FundsShareDTO {
-    private int uniqueid;
+
+    private int uniqueId;
     private String customerId;
     private String productId;
-    private int share;
+    private Integer share;
     private String accountId;
 
-    // Getters and Setters
-    public int getUniqueid() {
-        return uniqueid;
+    // Default constructor
+    public FundsShareDTO() {}
+
+    // Parameterized constructor
+    public FundsShareDTO(int uniqueId, String customerId, String productId, Integer share, String accountId) {
+        this.uniqueId = uniqueId;
+        this.customerId = customerId;
+        this.productId = productId;
+        this.share = share;
+        this.accountId = accountId;
     }
 
-    public void setUniqueid(int uniqueid) {
-        this.uniqueid = uniqueid;
+    // Getters and Setters
+    public int getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(int uniqueId) {
+        this.uniqueId = uniqueId;
     }
 
     public String getCustomerId() {
@@ -32,11 +47,11 @@ public class FundsShareDTO {
         this.productId = productId;
     }
 
-    public int getShare() {
+    public Integer getShare() {
         return share;
     }
 
-    public void setShare(int share) {
+    public void setShare(Integer share) {
         this.share = share;
     }
 
@@ -48,40 +63,34 @@ public class FundsShareDTO {
         this.accountId = accountId;
     }
 
-    // Optional: Override toString(), equals(), and hashCode() methods
+    // Overriding hashCode method
+    @Override
+    public int hashCode() {
+        return Objects.hash(uniqueId, customerId, productId, share, accountId);
+    }
+
+    // Overriding equals method
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FundsShareDTO that = (FundsShareDTO) o;
+        return uniqueId == that.uniqueId &&
+                Objects.equals(customerId, that.customerId) &&
+                Objects.equals(productId, that.productId) &&
+                Objects.equals(share, that.share) &&
+                Objects.equals(accountId, that.accountId);
+    }
+
+    // toString method for easy printing
     @Override
     public String toString() {
         return "FundsShareDTO{" +
-                "uniqueid=" + uniqueid +
+                "uniqueId=" + uniqueId +
                 ", customerId='" + customerId + '\'' +
                 ", productId='" + productId + '\'' +
                 ", share=" + share +
                 ", accountId='" + accountId + '\'' +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        FundsShareDTO that = (FundsShareDTO) o;
-
-        if (uniqueid != that.uniqueid) return false;
-        if (share != that.share) return false;
-        if (customerId != null ? !customerId.equals(that.customerId) : that.customerId != null) return false;
-        if (productId != null ? !productId.equals(that.productId) : that.productId != null) return false;
-        return accountId != null ? accountId.equals(that.accountId) : that.accountId == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = uniqueid;
-        result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
-        result = 31 * result + (productId != null ? productId.hashCode() : 0);
-        result = 31 * result + share;
-        result = 31 * result + (accountId != null ? accountId.hashCode() : 0);
-        return result;
-    }
 }
-
