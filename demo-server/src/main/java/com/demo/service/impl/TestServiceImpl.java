@@ -1,9 +1,9 @@
 package com.demo.service.impl;
 
 import com.demo.api.TestService;
-import com.demo.dto.TestUserInfo;
+import com.demo.domain.TestUserDTO;
+import com.demo.domain.TestUserInfo;
 import com.demo.service.dao.TestMapper;
-import com.demo.service.dto.TestUserDTO;
 import com.hundsun.jrescloud.rpc.annotation.CloudComponent;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

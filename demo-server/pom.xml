@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.hundsun.demo</groupId>
-            <artifactId>demo-api</artifactId>
+            <artifactId>Api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

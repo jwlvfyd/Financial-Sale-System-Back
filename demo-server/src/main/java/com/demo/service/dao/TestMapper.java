@@ -1,6 +1,6 @@
 package com.demo.service.dao;
 
-import com.demo.service.dto.TestUserDTO;
+import com.demo.domain.TestUserDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
