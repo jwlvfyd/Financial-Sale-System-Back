@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.query.dao.QueryMapper">
+    <resultMap id="bandTradeResult" type="com.demo.query.Vo.TradeVo">
+        <result column="swift_no" property="swiftNo" />
+        <result column="money" property="amount" />
+        <result column="share" property="amount" />
+        <result column="name" property="customerName" />
+        <result column="customer_id" property="customerId" />
+        <result column="bank_name" property="accountName" />
+        <result column="account_id" property="accountId" />
+        <result column="product_name" property="productName" />
+        <result column="product_id" property="productId" />
+    </resultMap>
+    <select id="getPurchaseList" resultMap="bandTradeResult">
+        SELECT
+            swift_no,
+            tpurchase.money,
+            tpurchase.`timestamp`,
+            tcustomerinfo.name,
+            tpurchase.customer_id,
+            taccount.bank_name,
+            tpurchase.account_id,
+            tfunds.product_name,
+            tpurchase.product_id
+        FROM
+            tpurchase
+                JOIN
+            tcustomerinfo ON tpurchase.customer_id = tcustomerinfo.customer_id
+                JOIN
+            taccount ON tpurchase.account_id = taccount.account_id
+                JOIN
+            tfunds ON tpurchase.product_id = tfunds.product_id
+        <where>
+            <if test="swiftNo != null">
+                and swift_no = #{swiftNo}
+            </if>
+            <if test="customerName != null">
+                and name like CONCAT('%', #{customerName}, '%')
+            </if>
+            <if test="startTime != null">
+                and `timestamp` > #{startTime}
+            </if>
+            <if test="endTime != null">
+                and `timestamp` <![CDATA[
+                <
+               ]]> #{endTime}
+            </if>
+        </where>
+    </select>
+    <select id="getRedeemList" resultMap="bandTradeResult">
+        SELECT
+        swift_no,
+        share,
+        tredeem.`timestamp`,
+        tcustomerinfo.name,
+        tredeem.customer_id,
+        taccount.bank_name,
+        tredeem.account_id,
+        tfunds.product_name,
+        tredeem.product_id
+        FROM
+        tredeem
+        JOIN
+        tcustomerinfo ON tredeem.customer_id = tcustomerinfo.customer_id
+        JOIN
+        taccount ON tredeem.account_id = taccount.account_id
+        JOIN
+        tfunds ON tredeem.product_id = tfunds.product_id
+        <where>
+            <if test="swiftNo != null">
+                and swift_no = #{swiftNo}
+            </if>
+            <if test="customerName != null">
+                and name like CONCAT('%', #{customerName}, '%')
+            </if>
+            <if test="startTime != null">
+                and `timestamp` > #{startTime}
+            </if>
+            <if test="endTime != null">
+                and `timestamp` <![CDATA[
+                <
+               ]]> #{endTime}
+            </if>
+        </where>
+    </select>
+    <resultMap id="bandAccountResult" type="com.demo.query.Vo.AccountVo">
+        <result column="account_id" property="accountId"/>
+        <result column="timestamp" property="changeTime"/>
+        <result column="balance_change" property="amount"/>
+        <result column="trade_type" property="tradeType"/>
+        <result column="bank_name" property="bankName"/>
+    </resultMap>
+    <select id="getAccountList" resultMap="bandAccountResult">
+        SELECT
+            taccount.account_id,
+            bank_name,
+            taccountchange.`timestamp`,
+            balance_change,
+            trade_type
+        FROM
+            taccountchange
+            JOIN
+            taccount ON taccount.account_id = taccountchange.account_id
+        <where>
+            taccount.account_id = #{accountId}
+            <if test="null != startTime">
+                and `timestamp` > #{startTime}
+            </if>
+            <if test="null != endTime">
+                and `timestamp` &lt; #{endTime}
+            </if>
+        </where>
+    </select>
+    <resultMap id="bandFundShareResult" type="com.demo.query.Vo.FundShareVo">
+        <result column="product_name" property="productName"/>
+        <result column="product_id" property="productId"/>
+        <result column="name" property="customerName"/>
+        <result column="account_id" property="accountId"/>
+        <result column="bank_name" property="accountName"/>
+    </resultMap>
+    <select id="getFundShare" resultMap="bandFundShareResult">
+        SELECT
+            product_name,
+            tfunds.product_id,
+            name,
+            taccount.account_id,
+            taccount.bank_name,
+            share
+        FROM
+            tfundsshare
+                JOIN
+            tcustomerinfo ON tfundsshare.customer_id = tcustomerinfo.customer_id
+                JOIN
+            tfunds ON tfundsshare.product_id = tfunds.product_id
+                JOIN
+            taccount ON tfundsshare.account_id = taccount.account_id
+        where
+            name = #{customerName}
+            <if test="null != productName">
+                and tfunds.product_name like CONCAT('%',#{productName},'%')
+            </if>
+    </select>
+</mapper>

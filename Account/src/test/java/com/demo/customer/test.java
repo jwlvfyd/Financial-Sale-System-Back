@@ -37,7 +37,7 @@ public class test {
         UserDTO user =new UserDTO();
         user.setName("张三");
         user.setPassword("123456");
-        redisClientUtil.set("wangwu",user);
+        redisClientUtil.hset("account","lisi",user);
 //        Object zhangsan = jsonredisTemplate.opsForValue().get("zhangsan");
 //        System.out.println(zhangsan);
 
