@@ -1,6 +1,7 @@
 package com.demo.product.dao;
 
 import com.demo.domain.FundsDTO;
+import com.demo.domain.FundsValueDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -37,4 +38,7 @@ public interface ProductMapper {
             "WHERE product_id=#{productId}")
     FundsDTO queryProductDTO(@Param("productId") String productId);
 
+    @Select("SELECT * " +
+            "FROM tfundsvalue ")
+    List<FundsValueDTO> queryFundsValueDTO();
 }
