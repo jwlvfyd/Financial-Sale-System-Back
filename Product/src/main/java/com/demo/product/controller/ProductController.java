@@ -1,6 +1,7 @@
 package com.demo.product.controller;
 
 import com.demo.domain.FundsDTO;
+import com.demo.domain.FundsValueDTO;
 import com.demo.domain.UserDTO;
 import com.demo.product.dao.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,7 @@ public class ProductController {
         Map<String, Object> data = new HashMap<>();
         try {
             FundsDTO Funds = productMapper.queryProductDTO(productId);
+            List<FundsValueDTO> values = productMapper.queryFundsValueDTO();
             response.put("status", 200);
             response.put("msg", "查询成功");
             data.put("productId",Funds.getProductId());
@@ -91,7 +93,7 @@ public class ProductController {
             data.put("riskLevel",Funds.getRiskLevel());
             data.put("productState",Funds.getProductState());
             data.put("createTime",Funds.getCreateTime());
-            data.put("values",null);
+            data.put("values",values);
             response.put("data", data);
             System.out.println("Query successfully!");
         } catch (Exception e) {
