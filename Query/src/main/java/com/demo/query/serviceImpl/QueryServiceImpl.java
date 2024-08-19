@@ -36,28 +36,6 @@ public class QueryServiceImpl implements com.demo.api.QueryService {
     public Result getTradeList(Object object) {
         Result result = new Result();
         TradeVo tradeVo = (TradeVo) object;
-        Object redisData = null;
-        //当swiftNo不为空，根据订单号查询
-        String swiftNo = tradeVo.getSwiftNo();
-        if(null != swiftNo && !"".equals(swiftNo)){
-            redisData = redisClientUtil.hget("trade",swiftNo);
-        }
-        if(null != redisData){
-           success(result,redisData);
-            return result;
-        }
-
-        //当startTime和endTime为null时候，在redis中查询
-        String name = tradeVo.getCustomerName();
-        if(null== tradeVo.getStartTime() && null==tradeVo.getEndTime()){
-            if(null != name && !"".equals(name)){
-                redisData = redisClientUtil.hget("trade",name);
-            }
-            if(null != redisData){
-                success(result,redisData);
-                return result;
-            }
-        }
         List<TradeVo> tradeVoList = queryMapper.getPurchaseList(tradeVo);
         tradeVoList.forEach((data)->data.setTradeType("申购"));
         List<TradeVo> redeemList = queryMapper.getRedeemList(tradeVo);
@@ -74,17 +52,6 @@ public class QueryServiceImpl implements com.demo.api.QueryService {
         Result result = new Result();
         AccountVo accountVo = (AccountVo)object;
         Object redisData = null;
-        //在redis中查询
-        if(null == accountVo.getStartTime() && null == accountVo.getEndTime()){
-            if(null != accountVo.getAccountId()){
-                redisData = redisClientUtil.hget("account", accountVo.getAccountId());
-            }
-            if(null != redisData){
-                success(result,redisData);
-                return result;
-            }
-        }
-
         List<AccountVo> accountVoList = queryMapper.getAccountList(accountVo);
         success(result,accountVoList);
         return result;
@@ -95,17 +62,6 @@ public class QueryServiceImpl implements com.demo.api.QueryService {
         Result result = new Result();
         FundShareVo fundShareVo = (FundShareVo) object;
         Object redisData = null;
-       //根据redis查询
-        if(null == fundShareVo.getProductName()){
-            if(null != fundShareVo.getCustomerName()){
-                redisData = redisClientUtil.hget("fundShare",fundShareVo.getCustomerName());
-            }
-            if(null != redisData){
-                success(result,redisData);
-                return result;
-            }
-        }
-
         List<FundShareVo> fundShareVoList = queryMapper.getFundShare(fundShareVo);
         success(result,fundShareVoList);
         return result;

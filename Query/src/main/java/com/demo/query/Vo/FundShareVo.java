@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 @Data
 public class FundShareVo {
+    private String customerId;
     private String customerName;
     private String productName;
     private String productId;
