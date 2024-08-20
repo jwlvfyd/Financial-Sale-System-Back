@@ -35,6 +35,9 @@
             <if test="swiftNo != null">
                 and swift_no = #{swiftNo}
             </if>
+            <if test="customerId != null">
+                and tpurchase.customer_id = #{customerId}
+            </if>
             <if test="customerName != null">
                 and name like CONCAT('%', #{customerName}, '%')
             </if>
@@ -70,6 +73,9 @@
         <where>
             <if test="swiftNo != null">
                 and swift_no = #{swiftNo}
+            </if>
+            <if test="customerId != null">
+                and tredeem.customer_id = #{customerId}
             </if>
             <if test="customerName != null">
                 and name like CONCAT('%', #{customerName}, '%')
@@ -113,6 +119,7 @@
         </where>
     </select>
     <resultMap id="bandFundShareResult" type="com.demo.query.Vo.FundShareVo">
+        <result column="customer_id" property="customerId"/>
         <result column="product_name" property="productName"/>
         <result column="product_id" property="productId"/>
         <result column="name" property="customerName"/>
@@ -121,6 +128,7 @@
     </resultMap>
     <select id="getFundShare" resultMap="bandFundShareResult">
         SELECT
+            tcustomerinfo.customer_id,
             product_name,
             tfunds.product_id,
             name,
@@ -135,10 +143,17 @@
             tfunds ON tfundsshare.product_id = tfunds.product_id
                 JOIN
             taccount ON tfundsshare.account_id = taccount.account_id
-        where
-            name = #{customerName}
+        <where>
+            <if test="null != customerName">
+                and name = #{customerName}
+            </if>
+            <if test="null != customerId">
+                and tcustomerinfo.customer_id = #{customerId}
+            </if>
             <if test="null != productName">
                 and tfunds.product_name like CONCAT('%',#{productName},'%')
             </if>
+        </where>
+
     </select>
 </mapper>
