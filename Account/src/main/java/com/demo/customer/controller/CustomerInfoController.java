@@ -74,7 +74,7 @@ public class CustomerInfoController {
     }
 
 
-    @PostMapping("/query")
+    @GetMapping("/query")
     public Map<String, Object> query(
             @RequestParam(value = "customerId") String customerId) {
 
