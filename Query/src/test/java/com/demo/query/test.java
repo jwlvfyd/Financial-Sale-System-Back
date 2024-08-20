@@ -14,6 +14,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
+
 @CloudComponent
 @SpringBootTest(classes = QueryStarter.class)
 @RunWith(SpringRunner.class)
@@ -49,6 +51,6 @@ public class test {
     }
     @Test
     public void test2(){
-        logger.info("info信息");
+        System.out.println(LocalDateTime.now());
     }
 }
