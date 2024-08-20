@@ -1,7 +1,6 @@
 package com.demo.clear.controller;
 
-import com.demo.domain.PurchaseDTO;
-import com.demo.domain.UserDTO;
+
 import com.demo.clear.dao.ClearMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +27,9 @@ public class ClearController {
         Map<String, Object> response = new HashMap<>();
         Map<String, Object> data = new HashMap<>();
         try {
+            clearMapper.selectLatestLog();
             response.put("status", 200);
             response.put("msg", "清算成功");
-            /**data.put("settlement",1111);
-             response.put("data", data);*/
             return response;
         } catch (Exception e) {
             response.put("status", 500);
@@ -52,8 +50,6 @@ public class ClearController {
         try {
             response.put("status", 200);
             response.put("msg", "重新清算成功");
-            /**data.put("reprocess",1);
-             response.put("data", data);*/
             return response;
         } catch (Exception e) {
             response.put("status", 500);
