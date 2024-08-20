@@ -91,7 +91,7 @@ public class CustomerInfoController {
             data.put("name",targetCustomerInfo.get(0).getName());
             data.put("gender",targetCustomerInfo.get(0).getGender());
             data.put("contactInfo",targetCustomerInfo.get(0).getContactInfo());
-            data.put("level",targetCustomerInfo.get(0).getRiskLevel());
+            data.put("riskLevel",targetCustomerInfo.get(0).getRiskLevel());
             data.put("accounts",CustomerInfo);
             response.put("data", data);
         } catch (Exception e) {
