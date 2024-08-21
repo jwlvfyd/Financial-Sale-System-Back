@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 @Data
 public class AccountVo {
     private String accountId;
-    private String startTime;
-    private String endTime;
+    private Long startTime;
+    private Long endTime;
     private String bankName;
     //支出 or 入账
     private String tradeType;

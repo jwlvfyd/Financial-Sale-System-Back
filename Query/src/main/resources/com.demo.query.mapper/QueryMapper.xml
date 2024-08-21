@@ -32,19 +32,19 @@
                 JOIN
             tfunds ON tpurchase.product_id = tfunds.product_id
         <where>
-            <if test="swiftNo != null and swiftNo != '' ">
+            <if test="null != swiftNo and swiftNo != '' ">
                 and swift_no = #{swiftNo}
             </if>
-            <if test="customerId != null and customerId != ''">
+            <if test="null != customerId and customerId != ''">
                 and tpurchase.customer_id = #{customerId}
             </if>
-            <if test="customerName != null and customerName != ''">
+            <if test="null != customerName and customerName != ''">
                 and name like CONCAT('%', #{customerName}, '%')
             </if>
-            <if test="startTime != null">
+            <if test="null != startTime">
                 and `timestamp` > #{startTime}
             </if>
-            <if test="endTime != null">
+            <if test="null != endTime">
                 and `timestamp` <![CDATA[
                 <
                ]]> #{endTime}
@@ -71,19 +71,19 @@
         JOIN
         tfunds ON tredeem.product_id = tfunds.product_id
         <where>
-            <if test="swiftNo != null and swiftNo != ''">
+            <if test="null != swiftNo and swiftNo != ''">
                 and swift_no = #{swiftNo}
             </if>
-            <if test="customerId != null and customerId != ''">
+            <if test="null != customerId and customerId != ''">
                 and tredeem.customer_id = #{customerId}
             </if>
-            <if test="customerName != null and customerName != ''">
+            <if test="null != customerName and customerName != ''">
                 and name like CONCAT('%', #{customerName}, '%')
             </if>
-            <if test="startTime != null">
+            <if test="null != startTime">
                 and `timestamp` > #{startTime}
             </if>
-            <if test="endTime != null">
+            <if test="null != endTime">
                 and `timestamp` <![CDATA[
                 <
                ]]> #{endTime}
@@ -114,7 +114,9 @@
                 and `timestamp` > #{startTime}
             </if>
             <if test="null != endTime">
-                and `timestamp` &lt; #{endTime}
+                and `timestamp` <![CDATA[
+                    <
+                ]]> #{endTime}
             </if>
         </where>
     </select>
