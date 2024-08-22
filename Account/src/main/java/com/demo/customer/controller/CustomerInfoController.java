@@ -52,6 +52,39 @@ public class CustomerInfoController {
         }
     }
 
+    @PostMapping("/updaterisk")
+    public Map<String, Object> updaterisk(
+            @RequestParam(value = "customerId") String customerId,
+            @RequestParam(value = "riskLevel") int riskLevel) {
+
+        System.out.println("--------------updaterisk--------------");
+        Map<String, Object> response = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
+
+        try {
+            int rowsAffected = customerInfoMapper.updateRiskLevel(customerId, riskLevel);
+            if (rowsAffected > 0) {
+                data.put("customerId", customerId);
+                data.put("riskLevel", riskLevel);
+                response.put("status", 200);
+                response.put("msg", "风险等级更新成功");
+                response.put("data", data);
+            } else {
+                response.put("status", 404);
+                response.put("msg", "未找到对应的用户");
+                response.put("data", null);
+            }
+        } catch (Exception e) {
+            response.put("status", 500);
+            response.put("msg", "更新风险等级时发生错误");
+            response.put("data", null);
+            System.out.println("更新风险等级异常:" + e);
+        }
+
+        return response;
+    }
+
+
     @PostMapping("/select")
     public Map<String, Object> select(
             @RequestParam(value = "customerId", defaultValue = "%") String customerId,

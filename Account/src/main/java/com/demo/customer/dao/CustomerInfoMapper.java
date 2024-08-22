@@ -3,10 +3,7 @@ package com.demo.customer.dao;
 import com.demo.domain.AccountDTO;
 import com.demo.domain.CustomerInfoDTO;
 import com.demo.domain.FundsDTO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -32,4 +29,9 @@ public interface CustomerInfoMapper {
             "FROM taccount " +
             "WHERE customer_id = #{customerId} ")
     List<AccountDTO> querycustomerInfoDTO(@Param("customerId") String customerId);
+
+
+    @Update("UPDATE tcustomerinfo SET risk_level = #{riskLevel} WHERE customer_id = #{customerId}")
+    int updateRiskLevel(@Param("customerId") String customerId, @Param("riskLevel") int riskLevel);
+
 }
